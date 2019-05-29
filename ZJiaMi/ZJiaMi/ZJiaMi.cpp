@@ -11,10 +11,11 @@
 #define ACCOUNT_NUM 0xF
 
 
-void changAccount()
+void changAccount(char *new_acc)
 {
 	char accuout[ACCOUNT_NUM];
 	char new_accuout[ACCOUNT_NUM];
+	memset(new_accuout, 0, ACCOUNT_NUM);
 	char *dll_file = "tdx.dll";
 	char *dll_new_file = "tdx_new.dll";
 
@@ -47,8 +48,20 @@ void changAccount()
 		printf("file open fail\n");
 	}
 
-	strcpy(new_accuout, "ABCDEFGHIJKL");
-
+	strcpy(new_accuout, new_acc);
+	/*
+	for (int k = ACCOUNT_NUM - 1; k >= 0; k--)
+	{
+		if (new_accuout[k] != '\0')
+		{
+			new_accuout[k] = '\0';
+		}
+		else 
+		{
+			break;
+		}
+	}
+	*/
 	fseek(fp_new, 0, 0);
 	fwrite(pre_buffer, ACCOUNT_OFFSET, 1, fp_new);
 
@@ -62,35 +75,41 @@ void changAccount()
 	fclose(fp);
 	free(pre_buffer);
 	free(end_buffer);
-	printf("\n change account end \n");
+	//printf("\n change account end \n");
 
 }
 
 char* getOddAccount(char* odd_account, char* org_account)
 {
 	char* odd = odd_account;
-	while ((*org_account++) != '\0')
+	int i = 0, j = 0;
+	while (org_account[i] != '\0')
 	{
 		if (i % 2 == 0)
 		{
 			odd[j] = org_account[i];
 			j++;
 		}
-			
+		i++;
 	}
 	odd_account[j] = '\0';
 
-
-	printf("%s\n", odd_account);
+	//printf("%s\n", odd_account);
 	return odd_account;
 }
 
 
 int _tmain(int argc, _TCHAR* argv[])
 {
+	char *org_account = "309619426390";
+	char odd_account[ACCOUNT_NUM];
+	memset(odd_account, 0, ACCOUNT_NUM);
+	printf("%s\n", getOddAccount(odd_account, org_account));
+
+
 #if 1
 	unsigned short a3 = 0x55E;
-	char* gpdm = "3245";
+	char* gpdm = odd_account;
 	char result[ACCOUNT_NUM];
 	int st = 0;
 	for (int i = 0; i < strlen(gpdm); i++)
@@ -124,8 +143,9 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	//getAccount();
 
-	char *org_account = "309619426390";
-	printf("%s\n", getAccount(org_account));
+
+
+	changAccount(result);
 
 	while (1) {};
 	return 0;
