@@ -30,6 +30,9 @@
     <ClInclude Include="zfunc.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="ccommon.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

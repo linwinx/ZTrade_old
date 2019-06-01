@@ -399,8 +399,8 @@ typedef void(__stdcall* GetQuotesDelegate)(int ClientID, char* Zqdm[], int Count
 /// void  Repay(int ClientID, char* Amount, char* Result, char* ErrInfo);
 typedef void(__stdcall* RepayDelegate)(int ClientID, char* Amount, char* Result, char* ErrInfo);
 
-//#define ACC_PINAN
-#define ACC_PINAN2
+#define ACC_PINAN
+//#define ACC_PINAN2
 //#define ACC_ZAHOSHANG
 
 #define RUN_LOG 1
