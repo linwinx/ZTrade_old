@@ -69,16 +69,24 @@ enum ZT_TCP_STATUS{
 };
 
 //Account Struct
+#define MAX_ACCOUNT_NUM 10
 typedef struct _AccountInfo_
 {
 	short        accountId; //账号序列
 	char         accountName[32]; //真实股票账号
-	SOCKET       accountSocket; //绑定的socket
-	LONG         accountAddr;
-	_AccountInfo_     *pNext;
+	char         accountPwd[32];//真实股票账号密码
 }AccountInfo;
 
-//Stock Struct
+//Socket list Struct
+#define MAX_SOCKET_NUM 64
+typedef struct _SocketList_
+{
+	SOCKET       clientSocket; //绑定的socket
+	LONG         clientAddr;
+	struct _SocketList_    *next;
+}SocketList;
+
+//TCP Stock pkg Struct
 typedef struct _StockInfo_
 {
 	char         stockId[8]; //股票编码
